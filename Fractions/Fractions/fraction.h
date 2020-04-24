@@ -6,25 +6,28 @@
 #include <iostream>
 #include <utility>
 #include <cmath>
+#include <string>
 
 class Fraction {
 
 private:
-	double whole;
-	double decimal;
+	double numerator;
+	double denominator;
 
-	void setWhole(double);
-	void setDecimal(double);
+	void setNumerator(double);
+	void setDenominator(double);
 public:
 
 	Fraction();
+	Fraction(int);
 	Fraction(double);
 	Fraction(const Fraction&);
 
-	double getWhole();
-	double getDecimal();
+	double getNumerator();
+	double getDenominator();
 	std::pair<double, double> split(double);
 
+	Fraction operator + (Fraction const&);
 };
 
 #endif

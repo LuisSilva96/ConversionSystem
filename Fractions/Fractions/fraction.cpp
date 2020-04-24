@@ -1,46 +1,52 @@
 #include "fraction.h"
 
 Fraction::Fraction() {
-	setWhole(0);
-	setDecimal(0);
+	setNumerator(0);
+	setDenominator(1);
 }
+
+Fraction::Fraction(int number) {
+	setNumerator(number);
+	setDenominator(1);
+}
+
 
 Fraction::Fraction(double number) {
 
-	std::pair<double, double> splittedNumber = split(number);
-
-	setWhole(splittedNumber.first);
-	setDecimal(splittedNumber.second);
+	//Here we need to figure it out how to conver the decimal number into a fraction
 }
 
 Fraction::Fraction(const Fraction &frac) {
-	setWhole(frac.whole);
-	setDecimal(frac.decimal);
+	setNumerator(frac.numerator);
+	setDenominator(frac.denominator);
 }
 
-void Fraction::setWhole(double wholeNumber) {
-	whole = wholeNumber;
+void Fraction::setNumerator(double numberNumerator) {
+	numerator = numberNumerator;
 }
 
-void Fraction::setDecimal(double decimalNumber) {
-	decimal = decimalNumber;
+void Fraction::setDenominator(double numberDenominator) {
+	denominator = numberDenominator;
 }
 
-double Fraction::getWhole() {
-	return whole;
+double Fraction::getNumerator() {
+	return numerator;
 }
 
-double Fraction::getDecimal() {
-	return decimal;
+double Fraction::getDenominator() {
+	return denominator;
 }
 
-std::pair<double, double> Fraction::split(double number) {
 
-	double decimalPart, wholePart;
+Fraction Fraction::operator+(Fraction const &frac) { //This should work once we fix how to conver from decimal to fraction
 
-	decimalPart = std::fmod(number, 1);
-	wholePart = number - decimalPart;
+	Fraction result;
 
-	return std::make_pair(wholePart, decimalPart);
+	result.numerator = (numerator * frac.denominator) + (denominator * frac.numerator);
+	result.denominator = denominator * frac.denominator;
+
+	return result;
 }
+
+
 
