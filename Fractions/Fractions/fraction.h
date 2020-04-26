@@ -7,6 +7,7 @@
 #include <cmath>
 #include <string>
 #include <stdlib.h>
+#include <algorithm>
 
 class Fraction {
 
@@ -18,6 +19,8 @@ private:
 	void setDenominator(double);
 
 	std::pair<double, double> getNumbersFromString(std::string);
+	void simplify();
+	int gcd(int, int);
 
 public:
 

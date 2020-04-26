@@ -37,18 +37,6 @@ int main() {
 	frac3 = frac1 * frac2;
 
 	cout << frac3.getNumerator() << "/" << frac3.getDenominator() << endl;
-
-
-
-
-
-
-	string str;
-
-	cout << "enter: ";
-	cin >> str;
-
-	cout << atof(str.c_str()) << endl;
 		
 	return 0;
 }

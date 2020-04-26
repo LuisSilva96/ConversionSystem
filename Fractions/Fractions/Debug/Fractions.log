@@ -1,3 +1,5 @@
 ﻿  fraction.cpp
-C:\Users\msi\Desktop\GroupProject\ConversionSystem\Fractions\Fractions\fraction.cpp(143,20): warning C4018:  '<': signed/unsigned mismatch
+  main.cpp
+  Generating Code...
+C:\Users\msi\Desktop\GroupProject\ConversionSystem\Fractions\Fractions\fraction.cpp(188,20): warning C4018:  '<': signed/unsigned mismatch
   Fractions.vcxproj -> C:\Users\msi\Desktop\GroupProject\ConversionSystem\Fractions\Debug\Fractions.exe

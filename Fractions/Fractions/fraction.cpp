@@ -54,6 +54,8 @@ Fraction Fraction::operator+(Fraction const &frac) { //    Operator + overload f
 	result.numerator = (numerator * frac.denominator) + (denominator * frac.numerator);
 	result.denominator = denominator * frac.denominator;
 
+	result.simplify();
+
 	return result;
 }
 
@@ -63,6 +65,8 @@ Fraction Fraction::operator -(Fraction const &frac) { //    Operator - overload 
 
 	result.numerator = (numerator * frac.denominator) - (denominator * frac.numerator);
 	result.denominator = denominator * frac.denominator;
+
+	result.simplify();
 
 	return result;
 }
@@ -74,6 +78,8 @@ Fraction Fraction::operator /(Fraction const& frac) { //    Operator / overload 
 	result.numerator = numerator * frac.denominator;
 	result.denominator = denominator * frac.numerator;
 
+	result.simplify();
+
 	return result;
 }
 
@@ -84,7 +90,46 @@ Fraction Fraction::operator *(Fraction const& frac) { //    Operator * overload 
 	result.numerator = numerator * frac.numerator;
 	result.denominator = denominator * frac.denominator;
 
+	result.simplify();
+
 	return result;
+}
+
+int Fraction::gcd(int numerator, int denominator) { // This recursive function determines what is the general comun divisor from two integers.
+
+	if (denominator == 0)
+		return numerator;
+	return gcd(denominator, numerator % denominator);
+}
+
+
+void Fraction::simplify() { //This function call the gcd until the fraction is completly simplfied.
+
+	const int MAX_PRECISION = 100000;
+
+	double tempNumerator = fabs(getNumerator());
+
+	if ((tempNumerator - int(tempNumerator)) != 0) { // Checking if the numerator is a decimal number, in that case transforms the numerator to a fraction
+		setNumerator(numerator * MAX_PRECISION);
+		setDenominator(denominator * MAX_PRECISION);
+	}
+
+	int divisor = gcd(int(getNumerator()), int(getDenominator())); //Get the divisor
+
+	int simpleNumerator = int(getNumerator());
+	int simpleDenominator = int(getDenominator());
+
+	while (divisor != 1) {
+
+		simpleNumerator = simpleNumerator / divisor;
+		simpleDenominator = simpleDenominator / divisor;
+
+		divisor = gcd(simpleNumerator, simpleDenominator);
+	}
+
+	setNumerator(double(simpleNumerator));
+	setDenominator(double(simpleDenominator));
+
 }
 
 std::pair<double, double> Fraction::getNumbersFromString(std::string numbers) { //  This function break a string into peaces to represent a fraction
@@ -151,20 +196,21 @@ std::pair<double, double> Fraction::getNumbersFromString(std::string numbers) { 
 	return std::make_pair(firstNumber,secondNumber);
 }
 
-std::istream& operator >> (std::istream &in, Fraction &frac) {
+std::istream& operator >> (std::istream &in, Fraction &frac) { // Overload operator >> to read an object Fraction 
 
 	std::string numbersString;
 	std::pair<double, double> numbers;
 
-	std::getline(in, numbersString);
+	std::getline(in, numbersString); // Gets a string from the buffer
 
-	numbers = frac.getNumbersFromString(numbersString);
+	numbers = frac.getNumbersFromString(numbersString); // split and fix the string into numbers
 
 	frac.setNumerator(numbers.first);
 	frac.setDenominator(numbers.second);
 
+	frac.simplify(); // simplify the fraction
+
 	return in;
 }
-
 
 
