@@ -17,6 +17,8 @@ Fraction::Fraction(double numerator_, double denominator_) { //    Constructor b
 
 	setNumerator(numerator_);
 	setDenominator(denominator_);
+
+	simplify();
 }
 
 Fraction::Fraction(const Fraction &frac) {  //    Constructor by Copy 
@@ -160,9 +162,9 @@ std::pair<double, double> Fraction::getNumbersFromString(std::string numbers) { 
 
 		double tempNumber = atof(numeratorPart.c_str());
 
-		firstNumber = firstNumber + tempNumber;
-
 		secondNumber = atof(denominatorPart.c_str());
+
+		firstNumber = (firstNumber * secondNumber) + tempNumber; // Cross multipliy
 	}
 	else { //Case where string is only a number or a single fraction
 
@@ -213,4 +215,14 @@ std::istream& operator >> (std::istream &in, Fraction &frac) { // Overload opera
 	return in;
 }
 
+std::string Fraction::toString() {
 
+	std::string theString;
+	std::stringstream stream;
+
+	stream << int(getNumerator() / getDenominator()) << " " << int(getNumerator()) % int(getDenominator()) << "/" << getDenominator() << std::endl;
+
+	theString = stream.str();
+
+	return theString;
+}

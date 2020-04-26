@@ -8,6 +8,7 @@
 #include <string>
 #include <stdlib.h>
 #include <algorithm>
+#include <sstream>
 
 class Fraction {
 
@@ -44,6 +45,8 @@ public:
 	Fraction operator * (Fraction const&);
 
 	friend std::istream& operator >> (std::istream&, Fraction&);
+
+	std::string toString();
 };
 
 #endif

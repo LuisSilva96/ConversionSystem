@@ -37,6 +37,13 @@ int main() {
 	frac3 = frac1 * frac2;
 
 	cout << frac3.getNumerator() << "/" << frac3.getDenominator() << endl;
+
+
+
+	cout << "Converting fraction to print out: ";
+	cout << frac1.toString() << endl;
+
+
 		
 	return 0;
 }
