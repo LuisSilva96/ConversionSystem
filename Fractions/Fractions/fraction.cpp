@@ -1,44 +1,53 @@
 #include "fraction.h"
 
-Fraction::Fraction() {
+  
+
+Fraction::Fraction() {  //    Default Constructor  
 	setNumerator(0);
 	setDenominator(1);
 }
 
-Fraction::Fraction(int number) {
+
+Fraction::Fraction(int number) {  //    Constructor by Integer parameter    
 	setNumerator(number);
 	setDenominator(1);
+} 
+
+Fraction::Fraction(double numerator_, double denominator_) { //    Constructor by two Doubles parameters    
+
+	setNumerator(numerator_);
+	setDenominator(denominator_);
 }
 
-
-Fraction::Fraction(double number) {
-
-	//Here we need to figure it out how to conver the decimal number into a fraction
-}
-
-Fraction::Fraction(const Fraction &frac) {
+Fraction::Fraction(const Fraction &frac) {  //    Constructor by Copy 
 	setNumerator(frac.numerator);
 	setDenominator(frac.denominator);
 }
 
-void Fraction::setNumerator(double numberNumerator) {
+void Fraction::setNumerator(double numberNumerator) { //    Sets the value of the member variable numerator 
+
 	numerator = numberNumerator;
 }
 
-void Fraction::setDenominator(double numberDenominator) {
-	denominator = numberDenominator;
+void Fraction::setDenominator(double numberDenominator) { //    Sets the value of the member variable denominator
+
+	if (numberDenominator == 0)
+		throw divisionByZero(); //Exception is thrown when the value of the variable is zero.
+	else if (numerator == 0)
+		denominator = 1;
+	else
+		denominator = numberDenominator;
 }
 
-double Fraction::getNumerator() {
+double Fraction::getNumerator() { //    Accesor to member variable numerator    
 	return numerator;
 }
 
-double Fraction::getDenominator() {
+double Fraction::getDenominator() { //    Accesor to member variable denominator    
 	return denominator;
 }
 
-
-Fraction Fraction::operator+(Fraction const &frac) { //This should work once we fix how to conver from decimal to fraction
+Fraction Fraction::operator+(Fraction const &frac) { //    Operator + overload for Fraction class handling
 
 	Fraction result;
 
@@ -46,6 +55,115 @@ Fraction Fraction::operator+(Fraction const &frac) { //This should work once we 
 	result.denominator = denominator * frac.denominator;
 
 	return result;
+}
+
+Fraction Fraction::operator -(Fraction const &frac) { //    Operator - overload for Fraction class handling
+
+	Fraction result;
+
+	result.numerator = (numerator * frac.denominator) - (denominator * frac.numerator);
+	result.denominator = denominator * frac.denominator;
+
+	return result;
+}
+
+Fraction Fraction::operator /(Fraction const& frac) { //    Operator / overload for Fraction class handling
+
+	Fraction result;
+
+	result.numerator = numerator * frac.denominator;
+	result.denominator = denominator * frac.numerator;
+
+	return result;
+}
+
+Fraction Fraction::operator *(Fraction const& frac) { //    Operator * overload for Fraction class handling
+
+	Fraction result;
+
+	result.numerator = numerator * frac.numerator;
+	result.denominator = denominator * frac.denominator;
+
+	return result;
+}
+
+std::pair<double, double> Fraction::getNumbersFromString(std::string numbers) { //  This function break a string into peaces to represent a fraction
+
+	std::size_t delimiter = numbers.find(' '); //  First delimiter to separe string into two pieces for two numbers
+	double firstNumber, secondNumber;
+	bool badString = false; // This boolean is a flag to determine if the string is not fixed adequately in the right format
+
+	const int LOW_BOUNDARY_ASCII = 46;
+	const int HIGH_BOUNDARY_ASCII = 57;
+	const int WHITE_SPACE_ASCII = 32;
+
+	if (delimiter != std::string::npos) { // If delimiter was not found, then either the user enter a single number or a single fraction
+
+		std::string firstPart = numbers.substr(0, delimiter);  //Get the first number in the string by finding the ' ' whitespace
+
+		std::string secondPart = numbers.substr(delimiter+1, numbers.size() - delimiter); //Get the second number in the string, from whitespace to end of string
+
+		firstNumber = atof(firstPart.c_str()); //  Converting string to double
+		
+		delimiter = secondPart.find('/'); // Delimiter to divide the second part od the string into two numbers
+
+		if (delimiter == std::string::npos)  // Bad input detected
+			badString = true;
+		
+		std::string numeratorPart = secondPart.substr(0, delimiter);
+		std::string denominatorPart = secondPart.substr(delimiter+1, secondPart.size() - delimiter);
+
+		double tempNumber = atof(numeratorPart.c_str());
+
+		firstNumber = firstNumber + tempNumber;
+
+		secondNumber = atof(denominatorPart.c_str());
+	}
+	else { //Case where string is only a number or a single fraction
+
+		delimiter = numbers.find('/');
+
+		if (delimiter != std::string::npos) {
+
+			std::string numeratorPart = numbers.substr(0, delimiter);
+			std::string denominatorPart = numbers.substr(delimiter + 1, numbers.size() - delimiter);
+
+			firstNumber = atof(numeratorPart.c_str());
+
+			secondNumber = atof(denominatorPart.c_str());
+
+		}
+		else { // Case only number
+			firstNumber = atof(numbers.c_str());
+			secondNumber = 1;
+		}
+
+	}
+
+	for (int i = 0; i < numbers.size(); i++) { // This loop checks in the string if the users have entered a character other than numbers or '.' '/' ' '
+		if ((numbers[i] < LOW_BOUNDARY_ASCII || numbers[i] > HIGH_BOUNDARY_ASCII) && numbers[i] != WHITE_SPACE_ASCII)
+			badString = true;
+	}
+
+	if (badString)  // If a bad string was detected, an error is thrown
+		throw badInput();
+
+	return std::make_pair(firstNumber,secondNumber);
+}
+
+std::istream& operator >> (std::istream &in, Fraction &frac) {
+
+	std::string numbersString;
+	std::pair<double, double> numbers;
+
+	std::getline(in, numbersString);
+
+	numbers = frac.getNumbersFromString(numbersString);
+
+	frac.setNumerator(numbers.first);
+	frac.setDenominator(numbers.second);
+
+	return in;
 }
 
 

@@ -4,9 +4,9 @@
 #define FRACTION_H
 
 #include <iostream>
-#include <utility>
 #include <cmath>
 #include <string>
+#include <stdlib.h>
 
 class Fraction {
 
@@ -16,18 +16,31 @@ private:
 
 	void setNumerator(double);
 	void setDenominator(double);
+
+	std::pair<double, double> getNumbersFromString(std::string);
+
 public:
+
+	//Exception class for a division by zero
+	class divisionByZero { };
+
+	//Exeption class for bad input
+	class badInput { };
 
 	Fraction();
 	Fraction(int);
-	Fraction(double);
+	Fraction(double, double);
 	Fraction(const Fraction&);
 
 	double getNumerator();
 	double getDenominator();
-	std::pair<double, double> split(double);
 
 	Fraction operator + (Fraction const&);
+	Fraction operator - (Fraction const&);
+	Fraction operator / (Fraction const&);
+	Fraction operator * (Fraction const&);
+
+	friend std::istream& operator >> (std::istream&, Fraction&);
 };
 
 #endif
