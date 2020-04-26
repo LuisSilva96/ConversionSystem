@@ -6,10 +6,12 @@ Conversion::Conversion() {
 }
 
 Conversion::Conversion(double v) {
-	value = v;
+	
+	setValue(v);
 }
 
 void Conversion::setValue(double v) {
+	if(v<0) v = 0 ;
 	value = v;
 }
 
