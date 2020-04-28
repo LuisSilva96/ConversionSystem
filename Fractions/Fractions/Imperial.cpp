@@ -1,63 +1,58 @@
 #include "Imperial.h"
-#include <string>
+#include<iostream>
 
-Imperial::Imperial() {
-	value = 0;
+Imperial::Imperial() : Conversion(0) {
+	//empty
 }
 
-Imperial::Imperial(double v) {
-	value = v;
+Imperial::Imperial(int v) : Conversion(v) {
+	//empty
+}
+
+Imperial::Imperial(double v) : Conversion(v) {
+	//empty
 }
 
 //MASS
-double Imperial::milligramsToOunce(double milligrams)
-{
-	return milligrams * 0.000035;
+double Imperial::milligramsToOunce() {
+	return value * 0.000035;
 }
 
-double Imperial::gramsToOunce(double grams)
-{
-	return grams * 0.035;
+double Imperial::gramsToOunce() {
+	return value * 0.035;
 }
 
-double Imperial::kilogramsToPounds(double kilograms)
-{
-	return kilograms * 2.2046;
+double Imperial::kilogramsToPounds() {
+	return value * 2.2046;
 }
 
 // LENGTH
-double Imperial::millimetersToInch(double millimeters)
-{
-	return millimeters * 0.039;
+double Imperial::millimetersToInch() {
+	return value * 0.039;
 }
 
-double Imperial::centimetersToInch(double centimeters)
-{
-	return centimeters * 0.39;
+double Imperial::centimetersToInch() {
+	return value * 0.39;
 }
 
-double Imperial::metersToInch(double meters) {
-	return meters * 39.37;
+double Imperial::metersToInch() {
+	return value * 39.37;
 }
 
-double Imperial::metersToFeet(double meters)
-{
-	return meters * 3.28;
+double Imperial::metersToFeet() {
+	return value * 3.28;
 }
 
-double Imperial::metersToYard(double meters)
-{
-	return meters * 1.094;
+double Imperial::metersToYard() {
+	return value * 1.094;
 
 }
 
-double Imperial::kilometersToYards(double kilometers)
-{
-	return kilometers * 1094;
+double Imperial::kilometersToYards() {
+	return value * 1094;
 }
 
-double Imperial::kilometersToMiles(double kilometers)
-{
-	return kilometers * 0.62;
+double Imperial::kilometersToMiles() {
+	return value * 0.62;
 }
 

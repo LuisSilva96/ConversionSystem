@@ -16,12 +16,12 @@ private:
 	double numerator;
 	double denominator;
 
-	void setNumerator(double);
-	void setDenominator(double);
+	void setNumerator(double value);
+	void setDenominator(double value);
 
-	std::pair<double, double> getNumbersFromString(std::string);
+	std::pair<double, double> getNumbersFromString(std::string numbers);
 	void simplify();
-	int gcd(int, int);
+	int gcd(int num, int denum);
 
 public:
 
@@ -32,19 +32,20 @@ public:
 	class badInput { };
 
 	Fraction();
-	Fraction(int);
-	Fraction(double, double);
-	Fraction(const Fraction&);
+	Fraction(int value);
+	Fraction(double value);
+	Fraction(double num, double denum);
+	Fraction(const Fraction& frac);
 
 	double getNumerator();
 	double getDenominator();
 
-	Fraction operator + (Fraction const&);
-	Fraction operator - (Fraction const&);
-	Fraction operator / (Fraction const&);
-	Fraction operator * (Fraction const&);
+	Fraction operator + (Fraction const& frac);
+	Fraction operator - (Fraction const& frac);
+	Fraction operator / (Fraction const& frac);
+	Fraction operator * (Fraction const& frac);
 
-	friend std::istream& operator >> (std::istream&, Fraction&);
+	friend std::istream& operator >> (std::istream& in, Fraction& frac);
 
 	std::string toString();
 };

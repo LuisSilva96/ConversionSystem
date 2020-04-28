@@ -1,16 +1,24 @@
 #ifndef CONVERSION_H
 #define CONVERSION_H
+
 #include <string>
+#include <cmath>
  
 class Conversion {
+
 protected: 
     double value;
+	void setValue(double v);
 public:
+
+	//Exception class for a negative input
+	class negativeInput { };
+
     Conversion();
+	Conversion(int v);
     Conversion(double v);
-    void setValue(double v);
     double getValue();
-    std::string convertToFraction(double v);
+ 
 };
 
 #endif // !Conversion.H

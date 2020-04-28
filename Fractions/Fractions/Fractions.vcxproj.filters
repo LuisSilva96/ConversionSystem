@@ -21,13 +21,13 @@
     <ClCompile Include="fraction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Desktop\Conversion\Conversion.cpp">
+    <ClCompile Include="Conversion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Desktop\Conversion\Imperial.cpp">
+    <ClCompile Include="Imperial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Desktop\Conversion\Metric.cpp">
+    <ClCompile Include="Metric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,13 +35,13 @@
     <ClInclude Include="fraction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Desktop\Conversion\Conversion.h">
+    <ClInclude Include="Conversion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Desktop\Conversion\Imperial.h">
+    <ClInclude Include="Imperial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\Desktop\Conversion\Metric.h">
+    <ClInclude Include="Metric.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

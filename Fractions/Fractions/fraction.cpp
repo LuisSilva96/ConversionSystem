@@ -13,6 +13,14 @@ Fraction::Fraction(int number) {  //    Constructor by Integer parameter
 	setDenominator(1);
 } 
 
+Fraction::Fraction(double numerator_) { //    Constructor by two Doubles parameters    
+
+	setNumerator(numerator_);
+	setDenominator(1);
+
+	simplify();
+}
+
 Fraction::Fraction(double numerator_, double denominator_) { //    Constructor by two Doubles parameters    
 
 	setNumerator(numerator_);
@@ -129,9 +137,13 @@ void Fraction::simplify() { //This function call the gcd until the fraction is c
 		divisor = gcd(simpleNumerator, simpleDenominator);
 	}
 
+	if (simpleDenominator < 0) { // Re distributing negative sing
+		simpleDenominator = simpleDenominator * (-1);
+		simpleNumerator = simpleNumerator * (-1);
+	}
+
 	setNumerator(double(simpleNumerator));
 	setDenominator(double(simpleDenominator));
-
 }
 
 std::pair<double, double> Fraction::getNumbersFromString(std::string numbers) { //  This function break a string into peaces to represent a fraction
@@ -143,6 +155,7 @@ std::pair<double, double> Fraction::getNumbersFromString(std::string numbers) { 
 	const int LOW_BOUNDARY_ASCII = 46;
 	const int HIGH_BOUNDARY_ASCII = 57;
 	const int WHITE_SPACE_ASCII = 32;
+	const int NEGATIVE_ASCII = 45;
 
 	if (delimiter != std::string::npos) { // If delimiter was not found, then either the user enter a single number or a single fraction
 
@@ -181,6 +194,7 @@ std::pair<double, double> Fraction::getNumbersFromString(std::string numbers) { 
 
 		}
 		else { // Case only number
+
 			firstNumber = atof(numbers.c_str());
 			secondNumber = 1;
 		}
@@ -188,8 +202,14 @@ std::pair<double, double> Fraction::getNumbersFromString(std::string numbers) { 
 	}
 
 	for (int i = 0; i < numbers.size(); i++) { // This loop checks in the string if the users have entered a character other than numbers or '.' '/' ' '
-		if ((numbers[i] < LOW_BOUNDARY_ASCII || numbers[i] > HIGH_BOUNDARY_ASCII) && numbers[i] != WHITE_SPACE_ASCII)
-			badString = true;
+		if ((numbers[i] < LOW_BOUNDARY_ASCII || numbers[i] > HIGH_BOUNDARY_ASCII) && numbers[i] != WHITE_SPACE_ASCII) {
+
+			if (i == 0 && (numbers[i] == NEGATIVE_ASCII)) //Case if first character is '-'
+				continue;
+			else
+				badString = true;
+		}
+			
 	}
 
 	if (badString)  // If a bad string was detected, an error is thrown
@@ -220,7 +240,13 @@ std::string Fraction::toString() {
 	std::string theString;
 	std::stringstream stream;
 
-	stream << int(getNumerator() / getDenominator()) << " " << int(getNumerator()) % int(getDenominator()) << "/" << getDenominator() << std::endl;
+	if (getDenominator() == 1) {
+		stream << getNumerator() << std::endl;
+	}
+	else {
+		stream << int(getNumerator() / getDenominator()) << " " << int(getNumerator()) % int(getDenominator()) << "/" << getDenominator() << std::endl;
+
+	}
 
 	theString = stream.str();
 
