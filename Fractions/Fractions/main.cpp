@@ -1,12 +1,16 @@
 #include <iostream>
 #include "fraction.h"
-
+#include "Imperial.h"
+#include "Metric.h"
 using namespace std;
-
 
 void displayMenu();
 void launchOption(int);
 void scalingFraction();
+void displayConversionMenu();
+void conversion();
+void metricConverter(int option, double value);
+void imperialConverter(int option, double value);
 
 int main() {
 
@@ -27,7 +31,7 @@ int main() {
 		launchOption(option);
 
 	} while (option != HIGHER_OPTION);
-		
+
 	return 0;
 }
 
@@ -46,12 +50,31 @@ void displayMenu() {
 	cout << "Please select one option of the above. (1-3): ";
 }
 
+void displayConversionMenu() {
+
+	cout << "\n\t\t\t\t--------CONVERSION MENU--------\n"
+		<< "\t\t\t\t Metric \t  Imperial\n"
+		<< "\t\t\tMASS   \n"
+		<< "\t\t\t1. Ounce->Milligrams \t 1. Milligrams->Ounce\n"
+		<< "\t\t\t2. Ounce->Grams      \t 2. Grams->Ounce\n"
+		<< "\t\t\t3. Pounds->Kilograms \t 3. Kilograms->Pounds\n"
+		<< "\t\t\tLENGTH  \n"
+		<< "\t\t\t4. Inch->Millimeters \t 4. Millimeters->Inch\n"
+		<< "\t\t\t5. Inch->Centimeters \t 5. Centimeters->Inch\n"
+		<< "\t\t\t6. Inch->Meters      \t 6. Meters->Inch\n"
+		<< "\t\t\t7. Feet->Meters      \t 7. Meters->Feet\n"
+		<< "\t\t\t8. Yards->Meters     \t 8. Meters->Yards\n"
+		<< "\t\t\t9. Yards->Kilometers \t 9. Kilometers->Yards\n"
+		<< "\t\t\t10.Miles->Kilometers \t 10.Kilometers->Miles\n\n";
+
+}
+
 void launchOption(int option) {
 
 	switch (option) {
 	case 1: scalingFraction();
 		break;
-	case 2: 
+	case 2:  conversion();
 		break;
 	case 3: cout << "Exiting...." << endl;
 		break;
@@ -79,15 +102,105 @@ Fraction fractionExceptionHandler() {
 	return frac;
 }
 
-void scalingFraction() {
-
+void conversion() {
+	char choice;
 	int option;
+	double numerator;
+	double denominator;
+	double value;
+	string results;
+	Fraction fraction;
+
+	displayConversionMenu();
+
+	cout << "Enter the value to be converted: ";
+	getchar();
+	fraction = fractionExceptionHandler();
+	numerator = fraction.getNumerator();
+	denominator = fraction.getDenominator();
+	value = numerator / denominator;
+
+	cout << "\"M\" -Metric or \"I\" -Imperial: ";
+	cin >> choice;
+	toupper(choice);
+
+	cout << "Choose your option:";
+	cin >> option;
+
+	cout << "Converted Value: ";
+	switch (choice) {
+	case 'M':metricConverter(option, value);
+		break;
+	case 'I':imperialConverter(option, value);
+		break;
+	}
+
+	cout << endl << endl;
+	system("pause");
+}
+
+void metricConverter(int option, double value) {
+	Metric metricConverter;
+
+	switch (option) {
+	case 1: cout << metricConverter.ounceToMilligrams(value) << " milligrams";
+		break;
+	case 2: cout << metricConverter.ounceToGrams(value) << " grams";
+		break;
+	case 3: cout << metricConverter.poundsToKilograms(value) << " kilograms";
+		break;
+	case 4: cout << metricConverter.inchToMillimeters(value) << " millimeters";
+		break;
+	case 5: cout << metricConverter.inchToCentimeters(value) << " centimeters";
+		break;
+	case 6: cout << metricConverter.inchToMeters(value) << " meters";
+		break;
+	case 7: cout << metricConverter.feetToMeters(value) << " meters";
+		break;
+	case 8: cout << metricConverter.yardsToMeters(value) << " meters";
+		break;
+	case 9: cout << metricConverter.yardsToKilometers(value) << " kilometers";
+		break;
+	case 10: cout << metricConverter.milesToKilometers(value) << " kilometers";
+		break;
+	}
+}
+
+void imperialConverter(int option, double value) {
+	Imperial imperialConverter;
+
+	switch (option) {
+	case 1: cout << imperialConverter.milligramsToOunce(value) << " ounce";
+		break;
+	case 2: cout << imperialConverter.gramsToOunce(value) << " ounce";
+		break;
+	case 3: cout << imperialConverter.kilogramsToPounds(value) << " pounds";
+		break;
+	case 4: cout << imperialConverter.millimetersToInch(value) << " inches";
+		break;
+	case 5: cout << imperialConverter.centimetersToInch(value) << " inches";
+		break;
+	case 6: cout << imperialConverter.metersToInch(value) << " inches";
+		break;
+	case 7:cout << imperialConverter.metersToFeet(value) << " feet";
+		break;
+	case 8: cout << imperialConverter.metersToYard(value) << " yards";
+		break;
+	case 9: cout << imperialConverter.kilometersToYards(value) << " yards";
+		break;
+	case 10:cout << imperialConverter.kilometersToMiles(value) << " miles";
+		break;
+	}
+}
+
+void scalingFraction() {
+	int option;
+	char unit;
 	Fraction frac1;
 	Fraction frac2;
 	Fraction result;
 	const int LOWER_OPTION = 1;
 	const int HIGHER_OPTION = 5;
-	
 
 	system("cls");
 
