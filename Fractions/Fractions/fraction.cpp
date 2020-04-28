@@ -42,7 +42,7 @@ void Fraction::setNumerator(double numberNumerator) { //    Sets the value of th
 void Fraction::setDenominator(double numberDenominator) { //    Sets the value of the member variable denominator
 
 	if (numberDenominator == 0)
-		throw divisionByZero(); //Exception is thrown when the value of the variable is zero.
+		throw DivisionByZero(); //Exception is thrown when the value of the variable is zero.
 	else if (numerator == 0)
 		denominator = 1;
 	else
@@ -213,7 +213,7 @@ std::pair<double, double> Fraction::getNumbersFromString(std::string numbers) { 
 	}
 
 	if (badString)  // If a bad string was detected, an error is thrown
-		throw badInput();
+		throw BadInput();
 
 	return std::make_pair(firstNumber,secondNumber);
 }

@@ -15,7 +15,7 @@ Conversion::Conversion(double v) {
 void Conversion::setValue(double v) {
 
 	if (v < 0)
-		throw negativeInput();
+		throw NegativeInput();
 	else
 		value = v;
 }

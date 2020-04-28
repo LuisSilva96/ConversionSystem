@@ -12,7 +12,7 @@ protected:
 public:
 
 	//Exception class for a negative input
-	class negativeInput { };
+	class NegativeInput { };
 
     Conversion();
 	Conversion(int v);

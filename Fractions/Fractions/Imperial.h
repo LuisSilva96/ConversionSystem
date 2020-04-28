@@ -7,8 +7,8 @@ class Imperial : public Conversion {
 
 public:
 	Imperial();
-	Imperial(int val);
-	Imperial(double val);
+	Imperial(int value);
+	Imperial(double value);
 
 	//MASS
 	double milligramsToOunce();

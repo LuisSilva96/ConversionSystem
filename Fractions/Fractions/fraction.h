@@ -26,10 +26,10 @@ private:
 public:
 
 	//Exception class for a division by zero
-	class divisionByZero { };
+	class DivisionByZero { };
 
 	//Exeption class for bad input
-	class badInput { };
+	class BadInput { };
 
 	Fraction();
 	Fraction(int value);

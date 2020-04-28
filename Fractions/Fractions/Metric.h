@@ -7,8 +7,8 @@ class Metric : public Conversion {
 
 public:
 	Metric();
-	Metric(int v);
-	Metric(double v);
+	Metric(int value);
+	Metric(double value);
 
 	// Mass
 	double ounceToMilligrams();
